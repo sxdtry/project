@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+      *{margin:0;padding:0;}
+      div{
+        position: relative;
+        top:0;
+        left:0;
+        width: 100px;
+        height: 100px;
+        background-color: pink;
+      }
+  </style>
+</head>
+<body>
+    <div></div>
+    <script>
+      let div = document.getElementsByTagName('div')[0];
+      document.addEventListener('keydown', move, false);
+      function move(e){
+        let eKc = e.keyCode;
+        select(eKc);
+        document.onkeydown = function(e){
+          let a = e.keyCode;
+          select(a);
+          console.log(1)
+        }
+      }
+      //判断
+      function select(eKc){
+        switch(eKc){
+          case 38:  //上
+            div.style.top = div.offsetTop - 10 + 'px';
+            break;
+          case 40:  //下
+            div.style.top = div.offsetTop + 10 + 'px';
+            break;
+          case 37:  //左
+            div.style.left = div.offsetLeft - 10 + 'px';
+            break;
+          case 39:  //右
+            div.style.left = div.offsetLeft + 10 + 'px';
+            break;
+          }
+        }
+    </script>
+</body>
+</html>

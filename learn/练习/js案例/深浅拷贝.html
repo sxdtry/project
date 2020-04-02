@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+      *{margin:0;padding:0;}
+      
+  </style>
+</head>
+<body>
+    <script>
+        let obj1 = {
+            a:1,
+            b:[1,2],
+            c:new Date(),
+            d:function(){}
+        }
+        // function content(date, deep){    //date为拷贝数据，deep控制是深拷贝还是浅拷贝
+        //     let obj = {};
+        //     if(date instanceof Array)obj = [];
+        //     for(var key in date){
+        //         let value = date[key];
+        //        obj[key] = !!deep && typeof value === 'object' && value !== 'null' ? content(value) : value;
+        //     }
+        //     return obj;
+        // }
+        
+
+        function copy(obj,newObj,deep){
+            for(var value in obj){
+                if(typeof obj[value] != "object"){
+                    newObj[value] = obj[value]
+                }else{
+                    var temObj = new obj[value].constructor
+                    copy(obj[value],temObj,deep)
+                    newObj[value] = temObj
+                }
+            }
+            return newObj
+        }
+        var a = copy(obj1,{})
+        console.log(obj1)
+    </script>
+</body>
+</html>

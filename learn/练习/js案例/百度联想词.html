@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+      *{margin:0;padding:0;}
+  </style>
+</head>
+<body>
+    <input type="text">
+    <ul></ul>
+    <script>
+        let p = document.getElementsByTagName('input')[0];
+        let ul = document.getElementsByTagName('ul')[0];
+        p.oninput = function(){
+            let value = this.value;
+            if(value){
+                let op = document.createElement("script");
+                op.src = "https://www.baidu.com/sugrec?prod=pc&wd=" + value + "&cb=fun";
+                document.body.appendChild(op);
+                op.onload = function(){
+                    document.body.removeChild(this);
+                }
+
+            }else{
+
+            }
+        }
+        function fun(obj){
+            console.log(obj)
+            let arr = obj.g;
+            let str = "";
+            for(let key in arr){
+                str += `<li>${arr[key].q}</li>`
+            }
+            ul.innerHTML = str;
+        }
+    </script>
+</body>
+</html>

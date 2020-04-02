@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+      *{margin:0;padding:0;}
+      
+  </style>
+</head>
+<body>
+    <script>
+        //冒泡排序
+        let arr = [12, 132, 15, 65, 74, 98, 65, 45, 34];
+        // for (let i = 0; i < arr.length - 1; i++) {
+        //     for (let j = 0; j < arr.length - 1 - i; j++) {
+        //         if(arr[j] < arr[j + 1]){
+        //             [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
+        //         }
+        //     }
+        // }
+
+        //选择排序
+        // for (let i = 0; i< arr.length - 1; i++) {
+        //   let etv = i;
+        //   for(let j = i; j < arr.length; j++){
+        //       if(arr[etv] > arr[j + 1]){
+        //           etv = j + 1;
+        //       }
+        //   }
+        //    [arr[etv], arr[i]] = [arr[i], arr[etv]];
+        // }
+
+        //插入排序
+        // for (var i = 1; i < arr.length; i++) {
+        //     let idx = arr[i];
+        //     for(var j = i - 1; j >= 0; j--){
+        //         if(arr[j] > idx){
+        //             arr[j + 1] = arr[j];
+        //         }else{
+        //             break;
+        //         }
+        //     }
+        //     arr[j + 1] = idx;
+        // }
+
+        //随机排序
+        let random = (x, y, s) => {
+            let etv = Math.floor(Math.random() * (y - x + 1) + x);
+            return etv === s ? random(x,y,s) : etv;
+        }
+        for(let i = 0; i < arr.length * 3; i++){
+            let a = i % arr.length;
+            let b = random(0, arr.length - 1, a);
+            [arr[a], arr[b]] = [arr[b], arr[a]];
+        }
+        console.log(arr);
+    </script>
+</body>
+</html>

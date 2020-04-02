@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+      *{margin:0;padding:0;}
+      
+  </style>
+</head>
+<body>
+    <input type="text">
+    <ul></ul>
+    <script>
+        var search = document.getElementsByTagName('input')[0];
+        var content = document.getElementsByTagName('ul')[0];
+        var head = document.getElementsByTagName('head')[0];
+        search.oninput = function(){
+            var scr = document.createElement('script');
+            scr.src = "https://www.baidu.com/sugrec?ie=utf-8&json=1&prod=pc&wd=" + search.value + "&cb=fn"
+            head.appendChild(scr);
+            head.removeChild(scr);
+        }
+        function fn(data){
+            var reg = /^\W/;
+            if(search.value === '' || reg.test(search.value)){
+                content.innerHTML = '';
+                return;
+            }
+            var str = '';
+            for(key in data.g){
+                str += "<li>" + data.g[key].q + "<il>";
+            }
+            content.innerHTML = str;
+            console.log(data)
+        }
+    </script>
+
+    <!-- https://www.baidu.com/sugrec?ie=utf-8&json=1&prod=pc&wd=1&cb=fn -->
+</body>
+</html>

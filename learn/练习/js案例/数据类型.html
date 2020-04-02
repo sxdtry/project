@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+      *{margin:0;padding:0;}
+      form{
+        width: 500px;
+        height: 350px;
+        margin:20px auto;
+
+      }
+      textarea{
+        width:500px;
+        height: 300px;
+        resize:none;
+        font-size: 30px;
+      }
+      input{
+        float: right;
+        width:50px;
+        height: 40px;
+      }
+      div{
+        position: absolute;
+        left:0;
+        right:0;
+        width:500px;
+        line-height:40px;
+        font-size:25px;
+        margin:auto;
+        color:red;
+      }
+  </style>
+</head>
+<body>
+  <form action="#">
+    <textarea id="text"></textarea>
+    <input type="submit" id="submit">
+    <input type="reset">
+    <input type="submit" id="reset" value="清除">
+  </form>
+  <div id="content">
+  </div>
+  <script>
+    let x = document.getElementById("submit");
+    let y = document.getElementById("reset");
+    let z = document.getElementById("text");
+    let o = document.getElementById("content");
+    x.onclick = function(){
+      let a = z.value;
+      o.innerHTML += "<p>" + a + "</p>";//和`<p>${a}</p>`效果一样;
+      z.value = "";P
+    }
+    y.onclick = function(){
+      o.innerHTML = "";
+    }
+  </script>
+</body>
+</html>

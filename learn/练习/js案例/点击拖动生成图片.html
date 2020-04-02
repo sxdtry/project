@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+      *{margin:0;padding:0;}
+      div{
+          position: absolute;
+          box-shadow: 0 0 10px 0;
+      }
+      img{
+        position: absolute;
+        box-shadow: 0 0 10px 0;
+        background-position: center;
+        background-size: cover;
+        border-radius:10%;
+      }
+  </style>
+</head>
+<body>
+    <script>
+        //点击生成div
+        document.addEventListener('mousedown', add ,false);
+        function add(e){
+            addInfo({
+                startX : e.pageX,
+                startY : e.pageY,
+                num: Math.floor(Math.random() * 8 + 1),
+            })
+        }
+        function addInfo(date){
+            let op = document.createElement('img');
+            op.style.backgroundImage = `url(img_game/${date.num}.jpg)`;
+            document.body.appendChild(op);
+            op.style.top = date.startY + 'px';
+            op.style.left = date.startX + 'px';
+            document.onmousemove = function addmove(e){
+                let newX= e.pageX;
+                let newY = e.pageY;
+                op.style.width = Math.max(newX, date.startX) - Math.min(newX, date.startX) + 'px';
+                op.style.height = Math.max(newY, date.startY) - Math.min(newY, date.startY) + 'px';
+                if(newX >= date.startX && newY < date.startY){
+                    op.style.top = newY + 'px';
+                }else if(newX < date.startX && newY >= date.startY){
+                    op.style.left = newX + 'px';
+                }else if(newX < date.startX && newY < date.startY){
+                    op.style.top = newY + 'px';
+                    op.style.left = newX + 'px';
+                }               
+            }
+        }
+        document.onmouseup = function(){
+            this.onmousemove = null;
+        };
+    </script>
+</body>
+</html>

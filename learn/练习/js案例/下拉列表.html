@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+      *{margin:0;padding:0;}
+      .wrap{
+          width: 200px;
+          height: 160px;
+          margin:50px auto;
+      }
+      ul{
+          overflow:hidden;
+          list-style-type:none;
+          width: 100%;
+          height: 40px;
+          border:1px solid red;
+          border-bottom:none;
+          background-color: pink;
+      }
+      ul:last-child{
+          border-bottom:1px solid red;
+      }
+      li{
+          position: relative;
+          border-top:1px solid red;
+          height: 30px;
+          line-height:30px;
+      }
+      .list{
+          border-top:none;
+          height: 40px;
+          line-height:40px;
+          font-size:20px;
+          color:#fff;
+          cursor:pointer;
+      }
+      .btn{
+          position: absolute;
+          right:0;
+          top:50%;
+          margin-top:-10px;
+          height: 20px;
+      }
+      .mark{
+          height:auto;
+      }
+  </style>
+</head>
+<body>
+    <div class="wrap">
+        <ul>
+            <li class="list">哆啦A梦</li>
+            <li>
+                <span class="content">大雄</span>
+                <button class="btn">修改</button>
+            </li>
+            <li>
+                <span class="content">静香</span>
+                <button class="btn">修改</button>
+            </li>
+        </ul>
+        <ul>
+            <li class="list">火影忍者</li>
+            <li>
+                <span class="content">鸣人</span>
+                <button class="btn">修改</button>
+            </li>
+            <li>
+                <span class="content">佐助</span>
+                <button class="btn">修改</button>
+            </li>
+        </ul>
+        <ul>
+            <li class="list">海贼王</li>
+            <li>
+                <span class="content">路飞</span>
+                <button class="btn">修改</button>
+            </li>
+            <li>
+                <span class="content">娜美</span>
+                <button class="btn">修改</button>
+            </li>
+        </ul>
+        <ul>
+            <li class="list">妖精的尾巴</li>
+            <li>
+                <span class="content">纳兹</span>
+                <button class="btn">修改</button>
+            </li>
+            <li>
+                <span class="content">格雷</span>
+                <button class="btn">修改</button>
+            </li>
+        </ul>
+    </div>
+    <script>
+        //声明变量
+        const ulList = document.getElementsByTagName('ul');
+        const list = document.getElementsByClassName('list');
+        const content = document.getElementsByClassName('content');
+        const btn = document.getElementsByClassName('btn');
+        //赋予每个list点击事件
+        for( let i = 0;i < list.length;i++){
+            ulList[i].mark = false;
+            list[i].onclick = function(){
+                for(let j = 0;j < list.length;j++){
+                    if(i === j){continue;}
+                    ulList[j].className = "";
+                    ulList[j].mark = false;
+                }
+                ulList[i].mark = !ulList[i].mark;
+                ulList[i].className = ulList[i].mark ? "mark":"";
+            }
+        }
+    </script>
+</body>
+</html>

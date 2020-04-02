@@ -1,0 +1,105 @@
+@charset "utf-8";
+*{
+    margin:0;
+    padding:0;
+}
+html,body{
+    width: 100vw;
+    height: 100vh;
+}
+
+#wrap{
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+.start,.map,.end{
+    text-align:center;
+    position: absolute;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 100%;
+}
+.start{
+    /* display: none; */
+    background-image: url(../img/dt1.jpg);
+    background-size: cover;
+}
+.map{
+    text-align: left;
+    display: none;
+    background-size: cover;
+}
+.end{
+    display: none;
+}
+
+/*start界面*/
+.start h1{
+    font-size: 30px;
+    margin: 100px 0;
+    color:#fff;
+}
+.start button{
+    width: 50%;
+    height: 40px;
+    margin-top: 30px;
+    border-radius: 10px;
+    border:none;
+    outline:0;
+}
+
+/*飞机*/
+.dj,.yj,.zd{
+    position: absolute;
+}
+/*map界面*/
+.map .score{
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 14px;
+    z-index: 100;
+    color: #fff;
+}
+
+/*敌军爆炸*/
+.map .boom{
+animation: boom 1s;
+}
+
+/*友军闪烁*/
+.map .glitter{
+    animation: glitter 2s infinite;
+}
+
+/*end界面*/
+.end div{
+    margin-top: 80px;
+    color:#fff
+}
+.end p{
+    line-height: 50px;
+}
+.end button{
+    margin-top: 70px;
+    width: 50%;
+    height: 40px;
+    outline: 0;
+    border:none;
+    border-radius: 10px;
+}
+@keyframes boom{
+    form{opacity:1}
+    to{opacity:0}
+}
+
+@keyframes glitter{
+    0%{opacity:1}
+    25%{opacity:0}
+    50%{opacity:1}
+    75%{opacity:0}
+    100%{opacity:1}
+}

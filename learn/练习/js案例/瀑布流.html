@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+      *{margin:0;padding:0;}
+      .wrap{
+          display: flex;
+          flex-direction: row;
+          justify-content: space-around;
+          width: 80%;
+          margin: 30px auto;
+      }
+      .wrap div{
+          width: 20%;
+      }
+      img{
+          flex: 1;
+          width: 87%;
+          border: 10px solid brown;
+          margin-bottom: 10px;
+          transition-duration: .3s;
+      }
+      img:hover{
+          transform: scale(1.02);
+          box-shadow:2px 2px 2px black;
+      }
+  </style>
+</head>
+<body>
+    <div class="wrap">
+        <div><img src="img/2.jpg" alt=""></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+
+    <script>
+        const wrap = document.getElementsByClassName('wrap')[0];
+        const row = wrap.getElementsByTagName('div');
+        //获取浏览器的可视高度
+        const winH = document.documentElement.scrollHeight;
+        //获取wrap元素滚动的高度
+        const wrapH = document.documentElement.scrollTop;
+        //存储每列的高度
+        var arr = [];
+        //加载限制
+        var rowMax = winH + 500;
+        //定时器
+        var timeId = null;
+        //计算列高度函数
+        var rowH = function(){
+            //遍历所有列
+            for(var i = 0; i < row.length; i++){
+                var add = 0;
+                //获取每列中的所有img
+                var img = row[i].getElementsByTagName('img');
+                //遍历所有img,求img总高度和
+                for(var j = 0; j < img.length; j++){
+                    add += img[j].offsetHeight;
+                }
+                arr.push(add);
+            }
+        }
+        //添加img函数
+        var addImg = function(){
+            rowH();
+            //获取最小列的下标
+            var minValue = arr.indexOf(Math.min(arr[0],arr[1],arr[2],arr[3]));
+            //给最小列添加img节点
+            var op = document.createElement('img');
+            op.src = "img/" + Math.floor(Math.random()*10 + 1) + ".jpg";
+            row[minValue].appendChild(op);
+            arr =[];
+            //加载限制
+            if(wrap.offsetHeight > rowMax){
+                clearTimeout(timeId);
+            }
+            //懒加载效果
+            document.addEventListener('scroll', function(){
+                console.log(document.documentElement.scrollTop+winH)
+                if(document.documentElement.scrollTop + winH > rowMax){
+                    rowMax += 500;
+                    timeId = setInterval(addImg, 100);
+                }
+            }, false)
+        }
+        //图片是在页面加载完再去请求加载的,所有需要使用onload,不然会出现图片未加载完,代码就执行完了
+        window.onload = function(){
+            //定时加载图片
+            timeId = setInterval(addImg, 100);
+        }
+    </script>
+</body>
+</html>

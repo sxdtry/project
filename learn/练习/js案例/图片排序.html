@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+      *{margin:0;padding:0;}
+      .wrap{
+          position: relative;
+          width: 940px;
+          height: 610px;
+          border: 1px solid red;
+          margin:50px auto;
+          padding:20px;
+          padding-bottom:0;
+      }
+      ul{
+          position: relative;
+          list-style-type:none;
+          width: auto;
+          height: 560px;
+      }
+      li{
+        position: absolute;
+        width: 300px;
+        height: 270px;
+        line-height:270px;
+        text-align:center;
+        font-size:70px;
+      }
+      li:nth-child(1){
+          top:0;
+          left:0;
+          background-color: red;
+      }
+      li:nth-child(2){
+          top:0;
+          left:320px;
+          background-color: pink;
+      }
+      li:nth-child(3){
+          top:0;
+          left:640px;
+          background-color: green;
+      }
+      li:nth-child(4){
+          top:290px;
+          left:0;
+          background-color: yellow;
+      }
+      li:nth-child(5){
+          top:290px;
+          left:320px;
+          background-color: gray;
+      }
+      li:nth-child(6){
+          top:290px;
+          left:640px;
+          background-color: blueviolet;
+      }
+      .btn{
+          position: absolute;
+          bottom:10px;
+          left:50%;
+          width: 150px;
+          height: 30px;
+          line-height: 30px;
+          text-align:center;
+          margin-left:-75px;
+      }
+      button{
+          width: 40px;
+          height: 25px;
+      }
+  </style>
+</head>
+<body>
+    <div class="wrap">
+        <ul>
+            <li>
+                <p>￥<span>18</span></p>
+            </li>
+            <li>
+                <p>￥<span>20</span></p>
+            </li>
+            <li>
+                <p>￥<span>25</span></p>
+            </li>
+            <li>
+                <p>￥<span>46</span></p>
+            </li>
+            <li>
+                <p>￥<span>75</span></p>
+            </li>
+            <li>
+                <p>￥<span>152</span></p>
+            </li>
+        </ul>
+        <div class="btn">
+            <button>随机</button>
+            <button>升序</button>
+            <button>降序</button>
+        </div>
+    </div>
+    <script>
+        const wrap = document.getElementsByClassName('wrap')[0];
+        const li = wrap.getElementsByTagName('li');
+        const span = wrap.getElementsByTagName('span');
+        const btn = wrap.getElementsByTagName('button');
+        let len = span.length;
+        let arr = [];
+        //定位计算方式：left:320* x;top:290px*Math.trunc(idx/3)
+        //循环将价格push到数组arr中
+        for(let i = 0; i < len; i++){
+            arr.push(span[i].innerHTML*1);
+        }
+        //升序
+        btn[1].onclick = () => {
+            arr.sort((a,b) => a - b);
+            // for(let j = 0; j < len; j++){
+            //     let idx = arr.indexOf(span[j].innerHTML*1);
+            //     li[idx].style.cssText = `left:${320*(idx%3)}px;top:${290*Math.trunc(idx/3)}px;`;
+            // }
+            a();
+        }
+        //降序
+        btn[2].onclick = () => {
+            arr.sort((a,b) => b - a);
+            // for(let j = 0; j < len; j++){
+            //     let idx = arr.indexOf(span[j].innerHTML*1);
+            //     li[j].style.cssText = `left:${320*(idx%3)}px;top:${290*Math.trunc(idx/3)}px;`;
+            // }
+            a();
+        }
+        //随机
+        btn[0].onclick = () => {
+            arr.sort((a,b) => Math.random() - 0.5);
+            // for(let j = 0; j < len; j++){
+            //     let idx = arr.indexOf(span[j].innerHTML*1);
+            //     li[j].style.cssText = `left:${320*(idx%3)}px;top:${290*Math.trunc(idx/3)}px;`;
+            // }
+            a();
+        }
+        function a(){
+            for(let j = 0; j < len; j++){
+                let idx = arr.indexOf(span[j].innerHTML*1);
+                li[j].style.cssText = `left:${320*(idx%3)}px;top:${290*Math.trunc(idx/3)}px;`;
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+      *{margin:0;padding:0;}
+      .wrap{
+          width: 1020px;
+          height: 400px;
+          margin:50px auto;
+      }
+      .shop{
+          float:left;
+          width: 360px;
+          height: 200px;
+          background-color: pink;
+          margin-right: 20px;
+          padding:100px 70px;
+      }
+      .list{
+          overflow: hidden;
+      }
+      .list div{
+          float:left;  
+          width: 52px;
+          margin:0 10px;
+          cursor: pointer;
+      }
+      .content{
+          overflow: hidden;
+          margin-top:20px;
+      }
+      .content div, .shopcar div{
+          float:left;
+          width: 70px;
+          line-height:40px;
+          font-size:14px;
+          text-align:center;
+          margin:0 10px 10px;
+          box-shadow: 0 0 10px 0 inset;
+      }
+      .space{
+          margin:0 5px;
+      }
+      .space + span{
+          cursor: pointer;
+      }
+      .shopcar{
+          float:left;
+          width: 360px;
+          height: 200px;
+          background-color: pink;
+          padding:100px 70px;
+      }
+  </style>
+</head>
+<body>
+    <div class="wrap">
+        <div class="shop">
+            <div class="list">
+                <div>手机</div>
+                <div>电脑</div>
+                <div>项链</div>
+                <div>化妆品</div>
+                <div>衣服</div>
+            </div>
+            <div class="content"></div>
+        </div>
+        <div class="shopcar"></div>
+    </div>
+    <script>
+        let shop = document.getElementsByClassName('shop')[0];
+        let list = shop.children[0].children;
+        let content = shop.children[1];
+        let shopcar = shop.parentNode.children[1];
+        let len = list.length;
+        for(let i = 0; i < len; i++){       //遍历点击事件
+            let mark = 1;                   //判断节点是否重复添加，1为未添加，0为已添加
+            list[i].onclick = function(){
+                if(mark === 1){
+                    let add = document.createElement("div");        //声明添加的节点
+                    let addcar = document.createElement("div");
+                    add.innerHTML = `<span>${list[i].innerHTML}</span><span class = "space">|</span><span>X</span>`;
+                    addcar.innerHTML = `<span>${list[i].innerHTML}</span>`
+                    // let add_car = addcar.cloneNode(true);           //深拷贝节点
+                    content.appendChild(add);                       //插入节点
+                    shopcar.appendChild(addcar);
+                    add.children[2].onclick = function(){           //点击事件，用来删除节点
+                        content.removeChild(add);
+                        shopcar.removeChild(addcar);
+                        mark = 1;       //删除后是开关变1，可再次添加节点
+                    }
+                }
+                mark = 0;               //添加节点后归0，关闭节点的添加
+            }
+        }
+        
+        // while(list_one !== null){
+        //     if(mark !== 1){
+        //         list_one = list_one.nextSibling;
+        //         mark = 1;
+        //         continue;
+        //     }else{
+        //         list_one.onclick = function(){   //无法修改项链等内容
+        //             let add = document.createElement("div");
+        //             add.innerHTML = `<span>${list_one}</span><span class = "space">|</span><span>X</span>`;
+        //             console.log(list_one)
+        //             // content.appendChild("add");
+        //         }
+        //         list_one = list_one.nextSibling;
+        //         mark = 0;
+        //     }
+        // }
+    </script>
+</body>
+</html>

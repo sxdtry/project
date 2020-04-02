@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+      *{margin:0;padding:0;}
+      #box{
+          position:relative;
+          width: 400px;
+          height: 300px;
+          margin:50px auto;
+      }
+      #box div{
+          display:none;
+          position:absolute;
+          left:0;
+          top:0;
+          width:400px;
+          height: 300px;
+          line-height:300px;
+          text-align:center;
+          font-size:100px;
+          color:#fff;
+      }
+      .btn{
+          position:absolute;
+          top:50%;
+          margin-top:-40px;
+          width: 40px;
+          height: 80px;
+          background-color: rgba(0,0,0,.4);
+          color:#000;
+          line-height:80px;
+          text-align:center;
+          font-size:35px;
+          cursor:pointer;
+      }
+      .left{
+          left:0;
+      }
+      .right{
+          right:0;
+      }
+      #box div:nth-child(1){
+          background-color: red;
+      }
+      #box div:nth-child(2){
+          background-color: yellow;
+      }
+      #box div:nth-child(3){
+          background-color: blue;
+      }
+      #box div:nth-child(4){
+          background-color: green;
+      }
+      #box div:nth-child(5){
+          background-color: pink;
+      }
+      #box .active{
+          display:block;
+      }
+  </style>
+</head>
+<body>
+    <div id="box">
+        <div class="active">1</div>
+        <div>2</div>
+        <div>3</div>
+        <div>4</div>
+        <div>5</div>
+        <span class="left btn"><</span>
+        <span class="right btn">></span>
+    </div>
+    <script>
+        const list = document.getElementsByTagName('div');
+        const right = document.getElementsByClassName('right')[0];
+        const left = document.getElementsByClassName('left')[0];
+        let count = 1;
+        let len = list.length - 2;
+        right.onclick = function(){
+            list[count].className = "";
+            if(count > len-1){
+                count=1;
+            }else{
+                count++;
+            }
+            list[count].className = "active";
+        }
+        left.onclick = function(){
+            list[count].className = "";
+            if(count < 2){
+                count=5;
+            }else{
+                count--;
+            }
+            list[count].className = "active";
+        }
+    </script>
+</body>
+</html>

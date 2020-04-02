@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        *{margin:0;padding:0;}
+        
+    </style>
+</head>
+<body>
+    <script>
+        ajax({
+            url:'./数据.json',
+            type:'GET',
+            dataType:'',
+            ansyc:'true',
+            success(){},
+        });
+        function ajax(data){
+            return new Promise((reslove, reject)=>{
+                var xhr = new XMLHttpRequest;
+                xhr.open(data.type,data.url,data.ansyc);
+                xhr.send();
+                xhr.onreadystatechange = () => {
+                    if(xhr.readyState === 4 && xhr.status >=200 && xhr.status < 300){
+                        if(xhr.responseText){
+                            reslove(JSON.parse(xhr.responseText));
+                        }else{
+                            reject(err);
+                        }
+                    }
+                }
+            }).catch(err=>err).then(obj=>{
+                for(let value of obj){
+                    for(let value1 in value){
+                        document.body.innerHTML += `<div>${value1}--${value[value1]}</div>`
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>

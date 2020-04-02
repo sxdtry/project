@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+      *{margin:0;padding:0;}
+      .wrap{
+          width: 600px;
+          height: 300px;
+          border: 1px solid red;
+          margin:50px auto;
+      }
+      span{
+          background-color: yellow;
+          color:red;
+          font-size:20px;
+      }
+  </style>
+</head>
+<body>
+    <div class="wrap">
+        <div class="container">
+            <input type="text">
+            <button>查询</button>
+            <input type="text">
+            <button>替换</button>
+        </div>
+        <p>周星驰[1]（Stephen Chow，1962年6月22日-），生于中国香港，毕业于无线电视艺员训练班，中国香港男演员、导演。1980年成为丽的电视台的特约演员，开始进入演艺圈。1988年，出演电影《霹雳先锋》，凭借该片获第25届台湾电影金马奖最佳男配角奖。1990年，出演《赌圣》而广受关注。其后出演过《少林足球》《功夫》《美人鱼》等作品，也获得过香港电影金像奖最佳导演奖、最佳男主角、最佳编剧，台湾电影金马奖最佳男配角等奖项。2016年执导《美人鱼》，创下中国内地电影票房新纪录[2]。</p>
+    </div>
+    <script>
+        const text = document.getElementsByTagName('input');
+        const inquire = document.getElementsByTagName('button');
+        let content = document.getElementsByTagName('p')[0];
+        let con = content.innerText;
+        //查找
+        inquire[0].onclick = function(){
+            let inquireContent = text[0].value.trim();
+            if(inquireContent && con.indexOf(inquireContent) > -1){
+               let arr = con.split(inquireContent);
+               let s1 = arr.join(`<span>${inquireContent}</span>`);
+               content.innerHTML = s1;
+            }
+        }
+        //替换
+        inquire[1].onclick = function(){
+            let inquireContent = text[0].value.trim();
+            let indexContent = text[1].value;
+            if(inquireContent && con.indexOf(inquireContent) > -1){
+                let arr = con.split(inquireContent);
+                let s1 = arr.join(`<span>${indexContent}</span>`);
+                content.innerHTML = s1;
+                arr = s1.split(`<span>${indexContent}</span>`);
+                s1 = arr.join(indexContent);
+                con = s1;
+            }
+        }
+    </script>
+</body>
+</html>

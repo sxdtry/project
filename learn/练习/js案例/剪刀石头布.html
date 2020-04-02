@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+      *{margin:0;padding:0;}
+      
+  </style>
+</head>
+<body>
+    <script>
+        let self = prompt();
+        console.log(self);
+        console.log(game(self));
+        function game(self){
+            let arr = ['剪刀', '石头', '布'];
+            let num = Math.floor(Math.random()*3);
+            console.log(arr[num]);
+            if(self === '剪刀' && arr[num] === '布' || self === '石头' && arr[num] === '剪刀' || self === '布' && arr[num] === '石头'){
+                console.log("你赢了！");
+            }else if(self === '剪刀' && arr[num] === '剪刀' || self === '石头' && arr[num] === '石头' || self === '布' && arr[num] === '布'){
+                console.log("平局！");
+            }else{
+                console.log("你输了！");
+            }
+        }
+    </script>
+</body>
+</html>

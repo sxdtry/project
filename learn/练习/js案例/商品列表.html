@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+      *{margin:0;padding:0;}
+      table{
+          margin:10px auto;
+          border-collapse:collapse;
+      }
+      table:nth-child(2){
+          border-color:pink;
+      }
+      table:nth-child(2) th{
+        font-size:18px;
+      }
+      th{
+          width:180px;
+          height: 60px;
+          background-color: pink;
+          font-size:25px;
+      }
+     tbody td{
+        text-align:center;
+        width:180px;
+        height: 100px;
+        font-size:20px;
+      }
+      img{
+            vertical-align:middle;
+          width: 80px;
+          height: 60px;
+      }
+      span{
+          color:crimson;
+          font-size:25px;
+          margin:0 5px;
+      }
+      .nub-mark{
+          display:inline-block;
+          vertical-align: middle;
+          width: 50px;
+          height: 30px;
+          border:1px solid #000;
+      }
+      button{
+          vertical-align: middle;
+          width:30px;
+          height: 30px;
+          line-height:30px;
+          font-size:20px;
+          cursor:pointer;
+      }
+  </style>
+</head>
+<body>
+    <table border=1>
+        <thead>
+            <tr>
+                <th>商品</th>
+                <th>价格</th>
+                <th>数量</th>
+                <th>小计</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <img src="1.png" alt="">
+                </td>
+                <td class="price">300元</td>
+                <td>
+                    <button class="minus">-</button>
+                    <span class="nub-mark">0</span>
+                    <button class="add">+</button>
+                </td>
+                <td class="sum">0</td>
+            </tr>
+            <tr>
+                <td>
+                    <img src="2.png" alt="">
+                </td>
+                <td class="price">1500元</td>
+                <td>
+                    <button class="minus">-</button>
+                    <span class="nub-mark">0</span>
+                    <button class="add">+</button>
+                </td>
+                <td class="sum">0</td>
+            </tr>
+            <tr>s
+                <td><img src="3.png" alt=""></td>
+                <td class="price">5000元</td>
+                <td>
+                    <button class="minus">-</button>
+                    <span class="nub-mark">0</span>
+                    <button class="add">+</button>
+                </td>
+                <td class="sum">0</td>
+            </tr>
+        </tbody>
+    </table>
+    <table border=1>
+        <tr>
+           <th></th>
+           <th></th>
+           <th>已选中商品:<span class="nub">0</span>个</th>
+           <th>总计:<span class="pri">0</span>元</th>
+        </tr>
+    </table>
+    <script>
+        const minus = document.getElementsByClassName('minus');
+        const add = document.getElementsByClassName('add');
+        const sum = document.getElementsByClassName('sum');
+        const nub_mark = document.getElementsByClassName('nub-mark');
+        const nub = document.getElementsByClassName('nub')[0];
+        const pri = document.getElementsByClassName('pri')[0];
+        const price = document.getElementsByClassName('price');
+        for (let i = 0;i < nub_mark.length;i++){
+            let count = 0;
+            add[i].onclick = function (){
+                count++;
+                nub_mark[i].innerHTML = count;
+                subTotal(i);
+            }
+            minus[i].onclick = function (){
+                count--;
+                if(count < 0){
+                    count = 0;
+                }
+                nub_mark[i].innerHTML = count;
+                subTotal(i);
+            }
+        }
+        function subTotal(i){
+            nub.innerHTML = "0";
+            pri.innerHTML = "0";
+            sum[i].innerHTML = parseInt(price[i].innerHTML) * nub_mark[i].innerHTML;
+            for(let j = 0;j < nub_mark.length;j++){
+               nub.innerHTML = nub.innerHTML*1 + nub_mark[j].innerHTML*1;
+            }
+            for(let k = 0;k < nub_mark.length;k++){
+               pri.innerHTML = pri.innerHTML*1 + sum[k].innerHTML*1;
+            }
+        }
+    </script>
+</body>
+</html> 

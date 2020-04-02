@@ -1,0 +1,142 @@
+@charset="utf-8";
+.container{
+	position:relative;
+	z-index:28;
+}
+.categorylist{
+	position:relative;
+	height:460px;
+	font-size:14px;
+}
+.cate-carousel{
+	height:460px;
+}
+.cate-carousel a{
+	display:block;
+	position:absolute;
+}
+.cate-carousel a img{
+	width:1226px;
+	height:460px;
+}
+.categorylist .leftlist{
+	position:absolute;
+	left:0;
+	top:0;
+	width:235px;
+	height:460px;
+	background-color:rgba(0,0,0,0.6);
+}
+.leftlist>ul{
+	padding-top:20px;
+	padding-bottom:20px;
+}
+.leftlist>ul>li:hover{
+	background-color:#f60;
+}
+.leftlist>ul>li>a{
+	display:block;
+	padding-left:20px;
+	line-height:42px;
+	color:#fff;
+}
+.leftlist>ul>li>a i{
+	float:right;
+	margin-right:30px;
+}
+.leftlist-submenu{
+	display:none;
+	position:absolute;
+	left:235px;
+	top:0;
+	background-color:#fff;
+	width:991px;
+	height:458px;
+	box-shadow:6px 0 10px -7px;
+	border:1px solid #b0b0b0;
+	border-left:none;
+	z-index:5;
+}
+.leftlist-submenu ul{
+	float:left;
+	width:247.7px;
+}
+.leftlist-submenu ul li:hover a{
+	color:#f60;
+}
+.leftlist-submenu a{
+	display:block;
+	line-height:75px;
+	padding-left:10px;
+}
+.leftlist-submenu img{
+	vertical-align:middle;
+	width:60px;
+	height:40px;
+}
+.leftlist-submenu span{
+	vertical-align:middle;
+}
+.leftlist>ul>li:hover .leftlist-submenu{
+	display:block;
+}
+.left-arrows,.right-arrows{
+	width:36px;
+	height:60px;
+}
+.left-arrows{
+	overflow:hidden;
+	position:absolute;
+	left:235px;
+	top:0;
+	bottom:0;
+	margin:auto;
+	background:url("../images/icon-slides.png") no-repeat -76px center/150px 60px;
+}
+.right-arrows{
+	overflow:hidden;
+	position:absolute;
+	right:0;
+	top:0;
+	bottom:0;
+	margin:auto;
+	background:url("../images/icon-slides.png") no-repeat -114px center/150px 60px;
+}
+.left-arrows a,.right-arrows a{
+	display:block;
+	height:60px;
+}
+.left-arrows:hover{
+	background:url("../images/icon-slides.png") no-repeat 0 center/150px 60px;
+}
+.right-arrows:hover{
+	background:url("../images/icon-slides.png") no-repeat -38px center/150px 60px;
+}
+.cate-dot{
+	position:absolute;
+	text-align:center;
+	right:30px;
+	bottom:30px;
+	width:180px;
+	line-height:40px;
+	font-size:0;
+}
+.cate-dot span{
+	display:inline-block;
+	width:8px;
+	height:8px;
+	margin-left:4px;
+	margin-right:4px;
+	border:2px solid #ccc;
+	background-color:#666;
+	border-radius:50%;
+}
+.cate-dot span a{
+	display:block;
+	width:8px;
+	height:8px;
+	border-radius:50%;
+}
+.cate-dot span:hover a{
+	background-color:#b0b0b0;
+}

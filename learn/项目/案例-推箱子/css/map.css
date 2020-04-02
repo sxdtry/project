@@ -1,0 +1,32 @@
+@charset "utf-8";
+#wrap{
+    position: relative;
+    margin:200px auto;
+    background-image:url(../img/block.gif)
+}
+#wrap div{
+    position: absolute;
+    width: 35px;
+    height: 35px;
+}
+#wrap div img{
+    position: absolute;
+    bottom:0;
+}
+#wrap .ball{
+    top:50%;
+    left:50%;
+    margin-left:-15px;
+    margin-top:-15px;
+}
+#wrap .person{
+    left:50%;
+    margin-left:-25px;
+}
+
+#btn{
+    position: absolute;
+    top:178px;
+    left:50%;
+    margin-left:-70.7px;
+}

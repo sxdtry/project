@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+      *{margin:0;padding:0;}
+      button{
+          display: block;
+          width: 200px;
+          height: 40px;
+          margin:50px auto;
+      }
+  </style>
+</head>
+<body>
+    <button disabled = false></button>
+    <script>
+        var button = document.getElementsByTagName('button')[0];
+        var date = new Date("2019/8/20");      //定义时间戳
+        var timeId = null;
+        timeId = setInterval(time, 0);
+        function time(){
+            var time = date - new Date();
+            if(time > 0){
+                var day = Math.floor(time / 1000 / 60 / 60 / 24);       //天
+                var hour = Math.floor(time / 1000 / 60 / 60 % 24);      //时
+                var minute = Math.floor(time / 1000 / 60 % 60)          //分
+                var second = Math.floor(time / 1000 % 60);              //秒
+                button.innerHTML = day + "天" + hour + "时" + minute + "分" + second + "秒";
+            }else{
+                clearTimeout(timeId);
+                button.removeAttribute("disabled");
+                button.innerHTML = "开始抢购";
+                conssle.log();
+            }
+        }
+    </script>
+</body>
+</html>

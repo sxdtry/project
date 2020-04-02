@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+      *{margin:0;padding:0;}
+      .box{
+          position: relative;
+          width: 350px;
+          height: 600px;
+          margin:20px auto;
+          background-color: #fff;
+      }
+      .main{
+          position: absolute;
+          left:50%;
+          top:0;
+          margin-left:-175px;
+          width:350px;
+          height: 600px;
+          border: 1px solid red;
+          border-radius: 5%;
+      }
+      .content {
+          position: relative;
+          width:310px;
+          height: 500px;
+          border:1px solid red;
+          margin:30px auto 0;
+      }
+      .clear{
+          position: absolute;
+          left:50%;
+          bottom:10px;
+          margin-left:-40px;
+          width:80px;
+          height: 50px;
+          border:2px solid red;
+          border-radius: 20px;
+      }
+      .chat{
+          position: absolute;
+          left:50%;
+          bottom:10px;
+          margin-left:-100px;
+          width:160px;
+          height: 32px;
+          line-height: 32px;
+          padding:4px 20px;
+          border:1px solid red;
+          border-left:none;
+          border-right:none;
+          outline:0;
+          overflow:hidden;
+      }
+      .cut{
+          position: absolute;
+          left:50%;
+          bottom:10px;
+          margin-left:-140px;
+          width:40px;
+          height: 40px;
+          line-height: 40px;
+          border:1px solid red;
+          cursor:pointer;
+      }
+      .container img{
+          float:left;
+          width: 30px;
+          height: 30px;
+          padding:10px 15px;
+      }
+      p{
+          float:left;
+          width:180px;
+          line-height:30px;
+          color:aqua;
+          box-shadow:0 0 5px red inset;
+          border-radius:15px;
+          padding:0 5px;
+          margin:10px 0;
+      }
+      .right{
+          float:right;
+      }
+      #picture{
+          width:40px;
+          height:40px;
+      }
+      .container .img-right{
+          float:right;
+      }
+      .content button{
+        position: absolute;
+          left:50%;
+          bottom:10px;
+          margin-left:100px;
+          text-align:center;
+          width:42px;
+          height: 42px;
+          line-height:40px;
+          border:1px solid red;
+          outline:0;
+          cursor:pointer;
+      }
+      .content button:active{
+          background-color: #f60;
+      }
+      .container{
+          width: 280px;
+          height: 400px;
+          border:1px solid red;
+          margin:10px auto 0;
+          padding:10px 0;
+          overflow:hidden;
+      }
+  </style>
+</head>
+<body>
+    <div class="box">
+        <div class="main">
+            <div class="content">
+                <div class="container">
+                </div>
+                <div class="cut">
+                    <img id="picture" src="1.jpg">
+                </div>
+                <div class="chat" contenteditable="true"></div>
+                <button>发送</button>
+            </div>
+            <button class="clear"></button>
+        </div>
+    </div>
+    <script>
+        let cut = document.getElementsByClassName("cut")[0];
+        let picture = document.getElementById("picture");
+        let chat = document.getElementsByClassName("chat")[0];
+        let button = document.getElementsByTagName("button")[0];
+        let container = document.getElementsByClassName("container")[0];
+        let img = 0;
+        cut.onclick= function(){
+            if(img === 0){
+                picture.src = "2.jpg";
+                img = 1;
+            }else{
+                picture.src = "1.jpg";
+                img = 0;
+            }
+        }
+        button.onclick = function(){
+            let a = chat.innerHTML;
+            if(a == ""){
+
+            }else if(img===0){
+                container.innerHTML += `<img src="1.jpg"><p>${a}</p>`;
+            
+            }else if(img === 1){
+                container.innerHTML += `<img class="img-right" src="2.jpg"><p class="right">${a}</p>`;
+            }
+        }
+        let clear = document.getElementsByClassName('clear')[0];
+        clear.onclick = function(){
+            container.innerHTML = "";
+        }
+    </script>
+</body>
+</html>

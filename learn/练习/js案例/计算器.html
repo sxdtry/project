@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+      *{margin:0;padding:0;}
+      .wrap{
+        width: 406px;
+        height: 628px;
+        margin:50px auto;
+        border-radius:25px 25px 0 0;
+        background-color: #ccc;
+        box-shadow: 0 0 10px 0;
+      }
+      ul{
+          display:flex;
+          height:508px;
+          flex-flow: row wrap;
+          justify-content:space-between;
+          align-content:space-between;
+      }
+      li{
+          list-style-type:none;
+          float:left;
+          text-align:center;
+          width: 100px;
+          line-height:100px;
+          font-size:25px;
+          font-weight:bold;
+          background-color: #ddd;
+          user-select:none;
+          cursor:pointer;
+      }
+      li:hover{
+          background-color: yellow;
+      }
+      .big{
+          width: 202px;
+      }
+      .symbol{
+          background-color: #ff9c2c;
+          color:#000;
+      }
+      p{
+          overflow:hidden;
+          text-align:right;
+          height: 60px;
+          line-height: 60px;
+          font-size: 35px;
+          color:#fff;
+          text-indent:20px;
+          font-weight:bold;
+      }
+      .result{
+          border-radius:25px 25px 0 0;
+      }
+      .content{
+          border-radius:25px 25px 0 0;
+          background-color: #989898;
+      }
+  </style>
+</head>
+<body>
+    <div class="wrap">
+        <div class="content">
+            <p class="result">0</p>
+            <p class="computer">0</p>
+        </div>
+        <ul>
+            <li class="big">C</li>
+            <li class="num symbol">%</li>
+            <li class="end">=</li>
+            <li class="num symbol">/</li>
+            <li class="num">7</li>
+            <li class="num">8</li>
+            <li class="num">9</li>
+            <li class="num symbol">*</li>
+            <li class="num">4</li>
+            <li class="num">5</li>
+            <li class="num">6</li>
+            <li class="num symbol">-</li>
+            <li class="num">1</li>
+            <li class="num">2</li>
+            <li class="num">3</li>
+            <li class="num symbol">+</li>
+            <li class="big num">0</li>
+            <li class="num">.</li>
+        </ul>
+    </div>
+    <script>
+        const big = document.getElementsByClassName('big')[0];
+        const symbol = document.getElementsByClassName('symbol');
+        const num = document.getElementsByClassName('num');
+        const end = document.getElementsByClassName('end')[0];
+        // const li = document.getElementsByTagName('li');
+        let result = document.getElementsByClassName('result')[0];
+        let computer = document.getElementsByClassName('computer')[0];
+        /*
+            1.点击显示在屏幕，并将数据存储在数组中
+            2.每输入完一串数字经过点击运算符确定数字输入完毕，并将其push到数组内，运算符则直接push进去
+            3.遍历数组内的数据，由运算符的优先级判断先计算哪个，然后将3个数据拿出来，到计算函数内计算，再放回数组原先的位置，重复执行该步骤，直到省一个数据为止，将该数据输出
+        */
+        let arr = [];
+        let arr_value = [];     //存储暂时计算数据
+        let str = "";
+        let flag = true;    //true为清空,false为不清空
+        for(let i = 0; i < num.length; i++){
+            num[i].onclick = function(){
+                let value = num[i].innerHTML;
+                //判断是不是运算符
+                if(this.className == "num symbol"){
+                    arr.push(str, value);
+                    //清空存储的字符串
+                    str = "";
+                }else{
+                    str += value;
+                }
+
+                //判断每次计算完后再次计算是否清空输入框
+                if(flag) computer.innerHTML = "";
+                computer.innerHTML += value;
+                flag = false;
+            }
+        }
+        
+        //end=
+        end.onclick = function(){
+            flag = !flag;
+            if(str !== "")arr.push(str);
+            //清空字符串
+            str = "";
+            //数组长度不为1就一直计算下去
+            while(arr.length != 1){
+                //遍历数组
+                for(let i = 0; i < arr.length; i++){
+                    let value;
+                    value = arr[i];
+                    if(value == "*" || value == "/" || value == "%"){
+                        console.log(arr)
+                        //将3个数据push到计算数组内
+                        arr_value.push(arr[i - 1], arr[i], arr[i + 1])
+                        // console.log(arr_value)
+                        //删除原先数组被拿出去计算的值,再将计算后的值放回原来的位置
+                        arr.splice(i - 1, 3, calu(arr_value));
+                        arr_value.length = 0;
+                        break;
+                    }else if( value == "+" || value == "-"){
+                        arr_value.push(arr[i - 1], arr[i], arr[i + 1])
+                        arr.splice(i - 1, 3, calu(arr_value));
+                        arr_value.length = 0;
+                        break;
+                    }
+                }
+            }
+            //添加到输入框和结果框
+            result.innerHTML = computer.innerHTML;
+            computer.innerHTML = arr[0].toFixed(16)*1;
+            //清空数组
+            arr.length = 0;
+        }
+
+        //归0事件
+        big.onclick = function(){
+            str = "";
+            arr.length = 0;
+            flag = true;
+            arr_value.length = 0;
+            value = "";
+            computer.innerHTML = "0";
+            result.innerHTML = "0";
+        }
+
+
+        //计算函数封装
+        function calu(arr){
+            switch(arr[1]){
+                case "+":
+                    return arr[0]*1 + arr[2]*1;
+                    break;
+                case "-":
+                    return arr[0] - arr[2];
+                    break;
+                case "*":
+                    return arr[0] * arr[2];
+                    break;
+                case "/":
+                    if(arr[2] == 0)return;
+                    else return arr[0] / arr[2];
+                    break;
+                case "%":
+                    if(arr[2] == 0)return;
+                    else return arr[0] % arr[2];
+                    break;
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+      *{margin:0;padding:0;}
+      div{
+          position: absolute;
+          border-radius:50%;
+          background-color: pink;
+      }
+  </style>
+</head>
+<body>
+    <script>    
+        //点击生成小球
+        let winHeight = document.documentElement.clientHeight;
+        let winWidth = document.documentElement.clientWidth;
+        document.onclick = function(e){
+            let op = document.createElement('div');
+            document.body.appendChild(op);
+            ball({
+                d : Math.floor(Math.random() * 80 + 20),
+                ballColor : color(),
+                sheepX : Math.floor(Math.random() * 21 - 10),
+                sheepY : Math.floor(Math.random() * 21 - 10),
+                startX : e.pageX,
+                startY : e.pageY,
+            }, op);
+        }
+        //创建小球
+        function ball(date, op){
+            window.onresize = function(){
+                winHeight = document.documentElement.clientHeight;
+                winWidth = document.documentElement.clientWidth;
+            }
+            op.style.backgroundColor = date.ballColor;
+            op.style.width = op.style.height = date.d + 'px';
+            op.style.left = date.startX - date.d / 2 + 'px';
+            op.style.top = date.startY - date.d / 2 + 'px';
+            function move(){
+                let maxHeight = winHeight - op.offsetHeight;
+                let maxWidth = winWidth - op.offsetWidth;
+                date.startX += date.sheepX;
+                date.startY += date.sheepY;
+                if(date.startX >= maxWidth || date.startX <= 0){
+                    date.startX = Math.min(date.startX, maxWidth);
+                    date.startX = Math.max(date.startX, 0);
+                    date.sheepX = -date.sheepX;
+                }
+                if(date.startY >= maxHeight || date.startY <= 0){
+                    date.startY = Math.min(date.startY, maxHeight);
+                    date.startY = Math.max(date.startY, 0);
+                    date.sheepY = -date.sheepY;
+                }
+                op.style.top = date.startY + 'px';
+                op.style.left = date.startX + 'px';
+                requestAnimationFrame(move);
+            }
+            move()
+        }
+        //随机颜色
+        function color(){
+            let r = Math.floor(Math.random()*256);
+            let g = Math.floor(Math.random()*256);
+            let b = Math.floor(Math.random()*256);
+            let rgb = `rgb(${r}, ${g}, ${b})`;
+            return rgb;
+        }
+    </script>
+</body>
+</html>

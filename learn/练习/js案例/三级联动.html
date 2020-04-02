@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+      *{margin:0;padding:0;}
+  </style>
+</head>
+<body>
+    <!-- 省级 -->
+    <select size="1">
+      <option  selected>请选择</option>
+    </select>
+
+    <!-- 市级 -->
+    <select size="1">
+        <option  selected>请选择</option>
+      </select>
+
+      <!-- 区级 -->
+      <select size="1">
+          <option  selected>请选择</option>
+        </select>
+    <script>
+       //模拟后台传输输数据
+      const procinceData = ['安徽','湖南','四川'];
+      const cityData = [['芜湖','合肥','安庆'],['长沙','邵阳','衡阳'],['成都','遂宁','南充']];
+      const countyData = [[['南陵','繁昌','无为'],['肥东','肥西','舒城'],['望江','东至','怀宁']],[['望城','天心','岳塘'],['新邵','邵东','隆回'],['衡南','衡山','衡东']],[['温江','双流','金牛'],['蓬溪','潼南','安岳'],['西充','蓬安','岳池']]];
+      const list = document.getElementsByTagName('select');
+
+      //遍历添加省级
+      for(let i = 0; i < procinceData.length; i++){
+
+        //创建空白option标签
+        let op = document.createElement("option");
+
+        //记录当前点击对象的下标
+        op.value = i;
+
+        //把对应省放到对应option内
+        op.innerHTML = procinceData[i];
+        list[0].appendChild(op);
+      }
+
+      //添加市级
+      list[0].onchange = function(){
+
+        //改变省使市和县恢复到默认状态，即清空上一次点击记录
+        list[1].innerHTML = `<option selected>请选择</option>`;
+        list[2].innerHTML = `<option selected>请选择</option>`;
+
+        //获取省对应的下标
+        let provinceId = list[0].value;
+
+        //遍历添加option空白节点
+        for(let j = 0; j < cityData[provinceId].length; j++){
+          let op = document.createElement('option');
+
+          //记录当前市级对应的下标
+          op.value = j;
+          op.innerHTML = cityData[provinceId][j];
+          list[1].appendChild(op);
+        }
+      }
+
+      //添加县级
+      list[1].onchange = function(){
+
+        //改变市使县恢复到默认状态，即清空上一次点击记录
+        list[2].innerHTML = `<option selected>请选择</option>`;
+        
+        //拿到省和市对应的下标
+        let provinceId = list[0].value;
+        let cityId = list[1].value;
+
+        //遍历添加option空白节点
+        for(let z = 0; z < countyData[provinceId][cityId].length; z++){
+          let op = document.createElement('option');
+          op.innerHTML = countyData[provinceId][cityId][z];
+          list[2].appendChild(op);
+        }
+      }
+    </script>
+</body>
+</html>

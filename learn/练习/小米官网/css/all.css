@@ -1,0 +1,31 @@
+@charset="utf-8";
+body,h1,h2,h3,h4,h5,h6,ul,li,dl,dt,dd,p,input{margin:0;padding:0;}
+ul{list-style-type:none;}
+a{text-decoration:none;color:inherit;}
+.pos-r{
+	position:relative;
+}
+.pos-a{
+	position:absolute;
+}
+.fl-l{
+	float:left;
+}
+.fl-r{
+	float:right;
+}
+.clearfix::after{
+	content:"";
+	display:block;
+	clear:both;
+}
+#ma-r{
+	margin-right:0;
+}
+#ma-l{
+	margin-left:0;
+}
+.m-w{
+	width:1226px;
+	margin:0 auto;
+}

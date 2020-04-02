@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+      *{margin:0;padding:0;}
+      
+  </style>
+</head>
+<body style = "height:10000px">
+    <script>
+        // var oldDate = 0;    //记录上一次点击时间
+        // var newDate;    //记录当前点击时间
+        // document.onclick = function(){
+        //     newDate = new Date();
+        //     var index = newDate - oldDate   //记录间隔时间
+        //     if(index < 1000)return;
+        //     console.log(1);
+        //     oldDate = newDate;
+        // }
+
+        /*
+            事件处理函数调用的频率无限制
+                    会加重浏览器的负担
+                    导致用户体验非常糟糕
+            解决办法：
+                    1.函数防抖
+                    2.函数节流
+
+            函数防抖（debounce）：当持续触发事件时，一定时间段内没有再触发事件，事件处理函数才会执行一次，如果设定的时间到来之前，又一次触发了事件，就重新开始延时。
+        */
+        // function debounce(fn, wait) {   //fn事件处理函数， wait等待时间
+        //      var timeout = null;    
+        //      return function() {       
+        //         if(timeout !== null)   clearTimeout(timeout);   //点击清除定时器，目的是留下最后一个定时器
+        //         timeout = setTimeout(fn, wait);   
+        //     }
+        // }
+        // // 处理函数
+        // function handle() {    
+        //     console.log(Math.random()); 
+        // }
+        // // 滚动事件                       点击执行debounce  return中的函数
+        // window.addEventListener('click', debounce(handle, 1000));//debounce自执行
+
+            //函数节流：当持续触发事件时，保证一定时间段内只调用一次事件处理函数。
+            //时间戳节流
+            // function throttle(func, delay) {            
+            // 　　var prev = Date.now();            
+            // 　　return function() {                
+            // 　　　　var context = this;               
+            // 　　　　var args = arguments; 
+            // 　　　　var now = Date.now();                
+            // 　　　　if (now - prev >= delay) {                    
+            // 　　　　　　func.apply(context, args);                    
+            // 　　　　　　prev = Date.now();                
+            // 　　　　}            
+            // 　　}        
+            // }        
+            // function handle() {            
+            // 　　console.log(Math.random());        
+            // }        
+            // window.addEventListener('click', throttle(handle, 1000));
+
+            // //定时器节流
+            //     function throttle(func, delay) {            
+            //     var timer = null;            
+            //     return function() {                
+            //         var context = this;               
+            //         var args = arguments;                
+            //         if (!timer) {                    
+            //             timer = setTimeout(function() {                        
+            //                 func.apply(context, args);                        
+            //                 timer = null;                    
+            //             }, delay);                
+            //         }            
+            //     }        
+            // }        
+            // function handle() {            
+            //     console.log(Math.random());        
+            // }        
+            // window.addEventListener('click', throttle(handle, 1000));
+
+            // 节流（时间戳+定时器），更加精确
+                function throttle(func, delay) {     
+                var timer = null;     
+                var startTime = Date.now();     
+                return function() {             
+                    var curTime = Date.now();             
+                    var remaining = delay - (curTime - startTime);             
+                    var context = this;             
+                    var args = arguments;             
+                    clearTimeout(timer);              
+                    if (remaining <= 0) {                    
+                        func.apply(context, args);
+                        startTime = Date.now();              
+                    } else {                    
+                        timer = setTimeout(func, remaining);              
+                    }      
+                }
+            }
+            function handle() {    
+                console.log(Math.random());
+            } 
+            window.addEventListener('click', throttle(handle, 1000));
+    </script>
+</body>
+</html>

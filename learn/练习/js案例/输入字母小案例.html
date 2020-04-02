@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #000;
+        }
+
+        .wrap {
+            width: 400px;
+            height: 500px;
+            text-align: center;
+            background-color: rgba(255,255,255,.5);
+            margin: 50px auto;
+            color: #fff;
+        }
+        .title{
+            font-size: 35px;
+            letter-spacing: 8px;
+            /* background-color: pink; */
+        }
+        .word{
+            width: 70%;
+            height: 70%;
+            line-height: 350px;
+            margin: 20px auto 30px;
+            font-size: 300px;
+            /* background-color: green; */
+            opacity: 1;
+            transition-duration: .5s;
+        }
+        span{
+            display: inline-block;
+            width: 32px;
+        }
+    </style>
+</head>
+
+<body>
+    <section class="wrap">
+        <section class="title">英语字母小测验</section>
+        <section class="word">A</section>
+        <section class = "judge">正确:<span class="true">0</span> 错误:<span class="false">0</span> 正确率:<span class="acc">0</span>%</section>
+    </section>
+
+            <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+            <script>
+                var title = $('.title');
+                var word = $('.word');
+                var yesContent = $('.true');
+                var noContent = $('.false');
+                var accContent = $('.acc');
+                var yes = 0,no = acc = 0,count = 0;
+
+                var Random = function(){
+                    //word内容淡入
+                    word.get(0).style.opacity = "0";
+                    //word内容完全淡入后更新word内容,再淡出
+                    var timeId = setTimeout(function(){
+                        //随机字母
+                        var ranWord = String.fromCharCode(Math.floor(Math.random()*26 + 65))
+                        //更新word字母
+                        word.html(ranWord);
+                        //word内容淡出
+                        word.get(0).style.opacity = "1";
+                    }, 500)
+                }
+                //键盘松开获取键值并与word字母比较
+                document.onkeyup = function(e){
+                    if(e.keyCode < 65 || e.keyCode > 90)return;
+                    //获取键值,并转为对应字符
+                    var keyWord = String.fromCharCode(e.keyCode);
+                    //获取word字母
+                    var contentWord = word.text();
+                    //记录按下几次
+                    count++;
+                    if(keyWord === contentWord){
+                        title.html('正确,请再接再厉!');
+                        Random();
+                        //正确自增
+                        yes++;
+                        //刷新正确的内容
+                        yesContent.html(yes);
+                    }else{
+                        title.html('错误,请再看一下!');
+                        //错误自增
+                        no++;
+                        //刷新错误的内容
+                        noContent.html(no);
+                    }
+                    //计算正确率
+                    accContent.html((yes / count * 100).toFixed(0));
+                }
+            </script>
+</body>
+
+</html>

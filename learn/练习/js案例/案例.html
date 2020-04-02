@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+	</style>
+</head>
+
+<body>
+	<lable>j:</lable><input type="text" class="j">
+	<lable>k:</lable><input type="text" class="k">
+	<lable>n:</lable><input type="text" class="n">
+	<input type="submit" class="btn">
+	<script>
+		//折叠计算
+		// let a = 0.001;
+		// let b = 8844.41;
+		// for (let i = 1; i > 0; i++){
+		// 	a = a * 2
+		// 	console.log(a);
+		// 	console.log(i);
+		// 	if(a > b){
+		// 		break;
+		// 	}
+		// }
+
+		//纸币组合
+		// let a = 1;
+		// let b = 2;
+		// let c = 5;
+		// let sum = 0;
+		// let count = 0;
+		// for(let i = 1 ;i <= 93 ;i++){
+		// 	for(let j = 1 ;j <= 47 ; j++){
+		// 		for(k = 1 ;k <= 19 ;k++){
+		// 			sum = a*i + b*j + c*k;
+		// 			if(sum === 100){
+		// 				count++;
+		// 				console.log(`第${count}种组合方法`);
+		// 				console.log("一元纸币有：" + i);
+		// 				console.log("二元纸币有：" + j);
+		// 				console.log("五元纸币有：" + k);
+		// 				break;
+		// 			}
+		// 		}
+		// 	}
+		// }
+
+		//兔子计算
+		// let yt = 1;
+		// let xt = 0;
+		// let ct = 0;
+		// for (let i = 1; i < 9; i++ ){
+		// 	ct = xt + ct;
+		// 	xt = yt;
+		// 	yt = ct;
+		// 	console.log(`${i}月：yt有${yt}，xt有${xt}，ct有${ct}`);
+		// }
+
+		//楼梯计算	楼梯N，走法j或K
+		// const a = document.getElementsByClassName('j')[0];
+		// const b = document.getElementsByClassName('k')[0];
+		// const c = document.getElementsByClassName('n')[0];
+		// const btn = document.getElementsByClassName('btn')[0];
+		// btn.onclick = function () {
+		// 	let x = parseInt(a.value);
+		// 	let y = parseInt(b.value);
+		// 	let z = parseInt(c.value);
+		// 	fn(x,y,z);
+		// }
+		// function fn(j, k, n) {
+		// 	let count = 0;
+		// 	for (let x = 0; x <= n / j; x++) {
+		// 		for (let y = 0; y <= (n - x * j) / k; y++) {
+		// 			if (n === x * j + y * k) {
+		// 				count++;
+		// 				console.log(`j走${x}次，k走${y}次，这是第${count}种走法。`)
+		// 			}
+		// 		}
+		// 	}
+		// 	if(count === 0){
+		// 		return -1;
+		// 	}
+		// }
+
+		//统计数组arr中值等于item的元素出现的次数
+		// let str = ['1',2,4,['1'],['1'],4,3];
+		// let count = 0;
+		// function a(arr, num){
+		// 	for (let i = 0, len = arr.length; i < len; i++) {
+		// 		if(arr[i] === num){
+		// 			count++;
+		// 		}
+		// 	}
+		// 	return count;
+		// }
+		// console.log(a(str, ['1']));
+
+		//翻转字符串
+		// let str = "123456789";
+		// function a(str){
+		// 	let str1 = "";
+		// 	let count = str.length - 1;
+		// 	for (let i = 0, len = str.length; i < len; i++) {
+		// 		// str1 += str[i + len - 1 -2 * i];
+		// 		str1 += str[count--];
+		// 	}
+		// 	return str1;
+		// }
+		// console.log(a(str));
+
+		//在数组arr末尾添加元素item。不要直接修改数组arr，结果返回新的数组
+			// let arr = [1,2,3,4];
+			// function a(arr, num) {
+			// 	let arr1 = [];
+			// 	for(let i  = 0; i < arr.length; i++){
+			// 		arr1[i] = arr[i];
+			// 	}
+			// 	console.log(arr1)
+			// 	arr1.length = arr1.length + 1;
+			// 	arr1[arr1.length - 1] = num;
+			// 	return arr1;
+			// }
+			// console.log(a(arr,4))
+			// console.log(arr)
+			
+
+		//删除数组arr最后一个元素。不要直接修改arr，结果返回新的数组
+		// let arr = [1,2,3,4];
+		// function a(arr) {
+		// 	let arr1 = [];
+		// 	for(let i  = 0; i < arr.length; i++){
+		// 		arr1[i] = arr[i];
+		// 	}
+		// 	arr1.length = arr1.length - 1;
+		// 	return arr1;
+		// }
+		// console.log(a(arr))
+		// console.log(arr)
+
+		//移除数组arr中的所有与item相等的元素，不要直接修改数组arr，结果返回新的数组
+		// let arr = [1,12,3,2,4,12];
+		// function a(arr,item){
+		// 	let arr1 = [];
+		// 	for (let i = 0; i < arr.length; i++){
+		// 		if (item !== arr[i]){
+		// 			arr1[arr1.length] = arr[i];
+		// 		}
+		// 	}
+		// 	return arr1;
+		// }
+		// console.log(a(arr,12))
+
+		//计算阶乘
+		// function a(sum){
+		// 	if(num === 0)return 0;
+		// 	let result = 1;
+		// 	len = num
+		// 	for(let i = 0; i < len; i++){
+		// 		result = result * num; 
+		// 		num--;
+		// 	}
+		// 	return result;
+		// 	递归调用
+		// 	if(sum === 1)return 1;
+		// 	return sum * a(sum - 1);
+		// }
+		// console.log(a(5))\
+		const  obj1 = {
+			a : 1,
+			b : ['a',{ c : [ ' h ' ]} ]
+		}
+
+function  extend(obj1, deep){
+	//deep    为true时，启定深拷贝，为false时，启动浅拷贝
+	var obj = {};
+	if(obj1  instanceof  Array){
+		//true  就是数组，obj就是数组
+		obj = [ ];
+	}
+	for(var key in obj1){
+		var  value = obj1[ key ];
+		//判断value是不是引用型，判断deep是true还是false
+		obj[ key ] = (!!deep  && typeof  value  === 'object'  &&  value  !==  null) ? extend( value, deep) : value;
+		console.log(obj === obj1)
+		
+	}
+	return  obj;
+}
+const  obj2 = extend(obj1);		//传的参数为一个时，默认就时浅拷贝
+obj2 . b = 2;
+
+console.log(obj1 === obj2)
+console.log( obj1 );
+console.log( obj2 )
+	</script>
+</body>
+
+</html>

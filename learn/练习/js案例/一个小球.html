@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+      *{margin:0;padding:0;}
+      body{
+        position: relative;
+      }
+      div{
+        position: absolute;
+        top: 0;
+        left:0;
+        width: 80px;
+        height: 80px;
+        background-color: pink;
+        border-radius:50%;
+      }
+  </style>
+</head>
+<body>
+  <div></div>
+  <script>
+    let ball = document.getElementsByTagName('div')[0];
+    let bid = document.getElementsByTagName('body')[0];
+    let startTop = ball.offsetTop;
+    let startLeft = ball.offsetLeft;
+    let maxTop = document.documentElement.clientHeight - ball.offsetWidth;
+    let maxLeft = document.documentElement.clientWidth - ball.offsetWidth;
+    let topSpeed = 10;
+    let leftSpeed = 10;
+    let move = function(){
+      window.onresize = function(){
+        maxLeft = document.documentElement.clientWidth - ball.offsetWidth;
+        maxTop = document.documentElement.clientHeight - ball.offsetWidth;
+      }
+      startTop += topSpeed;
+      startLeft += leftSpeed;
+      if(startTop >= maxTop || startTop <= 0){
+        startTop = Math.min(startTop,maxTop);
+        startTop = Math.max(0, startTop)
+        topSpeed = -topSpeed;
+      }
+      if(startLeft >= maxLeft || startLeft <= 0){
+        startLeft = Math.min(startLeft,maxLeft);
+        startLeft = Math.max(0, startLeft);
+        leftSpeed = -leftSpeed;
+      }
+      ball.style.left = startLeft + 'px';
+      ball.style.top = startTop + 'px';
+      requestAnimationFrame(move);
+    }
+    move()
+  </script>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+      *{margin:0;padding:0;}
+      .container{
+        display: none;
+        position: absolute;
+        width: 280px;
+        height: 240px;
+        border: 1px solid red;
+      }
+      ul{
+          list-style-type: none;
+          background-color: #fff;
+      }
+      li{
+          height: 60px;
+          line-height: 60px;
+          padding-left: 20px;
+          cursor: pointer;
+      }
+      li:hover{
+          background-color: #ccc;
+      }
+  </style>
+</head>
+<body>
+    <div class="container">
+        <ul>
+            <li>翻译</li>
+            <li>单词查询</li>
+            <li>添加入单词本</li>
+            <li>热点推荐</li>
+        </ul>
+    </div>
+
+    <script>
+        var container = document.getElementsByClassName('container')[0];
+        var winW = document.documentElement.scrollWidth;
+        var winH = document.documentElement.scrollHeight;
+        window.onresize = function(){
+            winW = document.documentElement.scrollWidth;
+            winH = document.documentElement.scrollHeight;
+        }
+        var fn = function(e){
+            //获取点击坐标
+            container.style.display = "block";
+            var rClickX = e.pageX;
+            var rClickY = e.pageY;
+            //获取元素宽高
+            var conW = container.offsetWidth;
+            var conH = container.offsetHeight;
+            //窗口高度与点击位置的高度差
+            var bottom = winH - rClickY;
+            //窗口宽度与点击位置的宽度差
+            var right = winW - rClickX;
+            // console.log(conH, conW)
+            if(bottom < conH){
+                container.style.top = rClickY - conH + "px";
+            }else{
+                container.style.top = rClickY + "px";
+            }
+            if(right < conW){
+                container.style.left = rClickX - conW + "px";
+            }else{
+                container.style.left = rClickX + "px";
+            }
+            // if(bottom >= conH && right >= conW){
+            //     container.style.top = rClickY + "px";
+            //     container.style.left = rClickX + "px";
+            // }
+            e.preventDefault();
+        }
+        var fn1 = function(e){
+            container.style.display = "none";
+        }
+        document.addEventListener('contextmenu',fn,false);
+        document.addEventListener('click',fn1,false);
+
+        // 阻止菜单内的点击事件和右击事件及默认事件
+        container.addEventListener('click', function(e){
+            e.stopPropagation();
+        }, false);
+        container.addEventListener('contextmenu', function(e){
+            e.stopPropagation();
+            e.preventDefault();
+        }, false);
+    </script>
+</body>
+</html>

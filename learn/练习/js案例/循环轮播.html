@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+
+		.wrap {
+			position: relative;
+			width: 600px;
+			height: 300px;
+			margin: 50px auto;
+		}
+
+		ul {
+			width: 100%;
+			height: 100%;
+		}
+
+		.carousel li {
+			display: none;
+			position: absolute;
+			text-align: center;
+			width: 100%;
+			height: 100%;
+			font-size: 100px;
+			line-height: 300px;
+			color: #fff;
+		}
+		.carousel li:nth-child(1){
+			background-color: pink;
+		}
+		.carousel li:nth-child(2){
+			background-color: blue;
+		}
+		.carousel li:nth-child(3){
+			background-color: olivedrab;
+		}
+		.carousel li:nth-child(4){
+			background-color: green;
+		}
+		.carousel li:nth-child(5){
+			background-color: purple;
+		}
+		.carousel .active{
+			display: block;
+		}
+		button{
+			position: absolute;
+			top:50%;
+			margin-top:-40px;
+			text-align: center;
+			width: 40px;
+			height: 80px;
+			line-height:80px;
+			font-size:30px;
+			background-color: rgba(0,0,0,.4);
+			color:#fff;
+			cursor:pointer;
+			border:none;
+			outline:0;
+		}
+		.right{
+			right:0;
+		}
+		.left{
+			left:0;
+		}
+		.dot{
+			position: absolute;
+			left:50%;
+			bottom:20px;
+			width: 71px;
+			height: 14px;
+			margin-left:-35.5px;
+		}
+		.dot span{
+			float:left;
+			width: 10px;
+			height: 10px;
+			border-radius: 50%;
+			background-color: #fff;
+			margin: 2px;
+			cursor:pointer;
+		}
+		.dot .color{
+			background-color: #000;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="wrap">
+		<ul class="carousel">
+			<li class="active">1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+			<li>5</li>
+		</ul>
+		<button class="left"><</button>
+		<button class="right">></button>
+		<div class="dot">
+			<span class = "color"></span>
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+		</div>
+	</div>
+	<script>
+		const list = document.querySelectorAll('.carousel li');
+		const left = document.querySelector('.left');
+		const right = document.querySelector('.right');
+		const dot = document.querySelectorAll('.dot span');
+		const carousel = document.querySelector('ul');
+		let count = 0;
+		let len = list.length;
+		let timeId = null;
+
+		//定时事件
+		function fn(){
+			list[count].className = "";
+			dot[count].className = "";
+			count++;
+			if(count > len - 1){
+				count = 0;
+			}
+			list[count].classList.toggle('active');
+			dot[count].classList.toggle('color');
+		}
+		
+		//右箭头点击事件
+		right.onclick = fn;
+
+		//左箭头点击事件
+		left.onclick = function(){
+			list[count].className = "";
+			dot[count].className = "";
+			count--;
+			if(count < 0){
+				count = 4;
+			}
+			list[count].classList.toggle('active');
+			dot[count].classList.toggle('color');
+		}
+
+		//dot点击事件
+		for(let i = 0; i < len; i++){
+			dot[i].onclick = function(){
+				list[count].className = "";
+				dot[count].className = "";
+				count = i;
+				dot[count].classList.toggle('color');
+				list[count].classList.toggle('active');
+			}
+		}
+
+		//定时器
+		timeId =setInterval(fn, 2000);
+
+		//鼠标悬停移入
+		carousel.onmouseenter = () => {
+			clearTimeout(timeId);
+		}
+		carousel.onmouseleave = () => {
+			timeId =setInterval(fn, 2000);
+		}
+	</script>
+</body>
+
+</html>

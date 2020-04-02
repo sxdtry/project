@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+      *{margin:0;padding:0;}
+      ul{list-style-type:none}
+      .wrap{
+          width: 400px;
+          background-color: pink;
+          margin:50px auto;
+          user-select: none;
+      }
+      .info{
+          padding:10px;
+      }
+      .info input{
+          width: 250px;
+          height: 30px;
+          margin: 5px 0;
+          font-size:18px;
+          text-indent:18px;
+      }
+      .info span{
+          font-size:18px;
+      }
+      button{
+          display: block;
+          width: 50px;
+          height: 30px;
+          margin:auto;
+      }
+      .content{
+          overflow:hidden;
+          text-align:center;
+          background-color: #ccc;
+          padding-bottom:10px;
+      }
+      .content li{
+          width: 380px;
+          margin:10px auto 0;
+          background-color: skyblue;
+          border-radius:30px;
+      }
+      .content .area{
+          display: inline-block;
+          vertical-align: middle;
+          margin: 0 40px;
+      }
+      .content h5{
+          display: inline-block;
+          vertical-align: middle;
+          font-size:25px;
+      }
+      .content .start-time{
+          margin-right:50px;
+      }
+      .content .sort{
+          margin-left:123px;
+          font-size:16px;
+      }
+      .content .price{
+          margin: 0 5px;
+      }
+      .content li > p{
+          margin-top:10px;
+      }
+  </style>
+</head>
+<body>
+    <div class="wrap">
+        <div class="info">
+            <span>出发地点：</span><input type="text"><br>
+            <span>到达地点：</span><input type="text"><br>
+            <span>出发时间：</span><input type="text">
+            <button>查询</button>
+        </div>
+    
+        <div class="content">
+            <ul>
+                <!-- <li>
+                    <div>
+                        <h5>芜湖</h5>
+                        <div class = "area">
+                            <p class="t-num" style = "font-size:12px;">K850</p>
+                            <p class = "arrows" style = "font-weight:bold;">--------&gt</p>
+                            <p class = "spend-time" style = "font-size:12px;">2小时</p>
+                        </div>
+                        <h5>合肥</h5>
+                    </div>
+                    <p><span class = "start-time">2015年10月2日19:30开</span><span class="seat">10车065号</span></p>
+                    <p style = "font-size:25px;">￥<span class = "price">150</span>元<span class="sort">新空调硬座</span></p>
+                </li> -->
+            </ul>
+        </div>
+    </div>
+    <script>
+        /*  思路：点击查询获取查询信息，
+            将查询信息转为json对象，
+            通过ajax传到服务器，
+            在接收服务器传回来的数据，使用数据
+            通过传参的方式使用传回来的数据    
+        */
+        // var xhr = new XMLHttpRequest();
+        // xhr.open("GET","http://route.showapi.com/909-1?showapi_appid=103634&showapi_sign=f91e9ed36c2e450bb89acb742266f4be&from=芜湖&to=合肥&trainDate=2019-08-29", true);
+        // xhr.send();
+        // xhr.onreadystatechange = () => {
+        //     if(xhr.readyState === 4 && xhr.status >= 200 && xhr.status <= 300){
+        //         console.log(JSON.parse(xhr.responseText).showapi_res_body.trains);
+        //     }
+        // }
+        const spInfo = document.getElementsByTagName('input');
+        const btn = document.getElementsByTagName('button')[0];
+        const oUl = document.getElementsByTagName('ul')[0];
+        btn.onclick = function(){
+            info({
+                from:spInfo[0].value,
+                to:spInfo[1].value,
+                time:spInfo[2].value
+            })
+        }
+
+        //传出数据信息
+        function info(data){
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET","http://route.showapi.com/909-1?showapi_appid=103634&showapi_sign=f91e9ed36c2e450bb89acb742266f4be&from=" + data.from + "&to=" + data.to + "&trainDate=" + data.time, true);
+            xhr.send();
+            xhr.onreadystatechange = () => {
+                if(xhr.readyState === 4 && xhr.status >= 200 && xhr.status <= 300){
+                    const database = JSON.parse(xhr.responseText).showapi_res_body.trains;
+                    add(database,data);
+                }
+            }
+        }
+
+        //使用后台数据
+        function add(database,data){
+            console.log(database)
+            const str = [];
+            for(var i = 0, len = database.length; i < len; i++){
+                str.push(`<li>
+                    <div>
+                        <h5>${database[i].fromCity}</h5>
+                        <div class = "area">
+                            <p class="t-num" style = "font-size:12px;">${database[i].num}</p>
+                            <p class = "arrows" style = "font-weight:bold;">--------&gt</p>
+                            <p class = "spend-time" style = "font-size:12px;">${database[i].usedTime}分钟</p>
+                        </div>
+                        <h5>${database[i].toCity}</h5>
+                    </div>
+                    <p><span class = "start-time">${data.time} ${database[i].fromTime}开</span><span class="seat">10车065号</span></p>
+                    <p style = "font-size:25px;">￥<span class = "price">${database[i].ticketInfo.hardseat.price}</span>元<span class="sort">新空调${database[i].ticketInfo.hardseat.ticketName}</span></p>
+                </li>`)
+            }
+            oUl.innerHTML = str.join('');
+        }
+    </script>
+</body>
+</html>
